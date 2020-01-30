@@ -24,6 +24,20 @@ services:
       - "DB_HOST=mysql"
       - "REDIS_PORT=6379"
       - "REDIS_HOST=redis"
+  php-cli:
+    build:
+      context: ./
+      dockerfile: docker/php-cli.docker
+    volumes:
+      - ./:/var/www
+    links:
+      - mysql
+      - redis
+    environment:
+      - "DB_PORT=3306"
+      - "DB_HOST=mysql"
+      - "REDIS_PORT=6379"
+      - "REDIS_HOST=redis"
   mysql:
     image: mysql:5.7
     volumes:
@@ -39,3 +53,11 @@ services:
     image: redis:3.0
     ports:
       - "63791:6379"
+  node:
+    build:
+      context: ./
+      dockerfile: docker/node.docker
+    volumes:
+      - ./:/var/www
+    tty: true
+
