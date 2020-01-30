@@ -1,7 +1,7 @@
 /node_modules
 /public/hot
 /public/storage
-/public/*
+/public/build
 /storage/*.key
 /storage/debugbar/
 /vendor
@@ -9,7 +9,9 @@
 .env.backup
 .phpunit.result.cache
 .phpstorm.meta.php
+.idea/
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+_ide_helper.php
