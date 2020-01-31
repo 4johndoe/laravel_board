@@ -19,9 +19,9 @@
     <!-- Styles -->
     <link href="{{ mix('css/app.css', 'build') }}" rel="stylesheet">
 </head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<body id="app">
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -72,10 +72,20 @@
                 </div>
             </div>
         </nav>
+    </header>
 
-        <main class="py-4">
+    <main class="app-content py-4">
+        <div class="container">
             @yield('content')
-        </main>
-    </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="border-top pt-3">
+                <p>&copy; {{ date('Y') }} - {{ config('app.name') }}</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
