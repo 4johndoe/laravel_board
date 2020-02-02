@@ -3,6 +3,9 @@
 @section('content')
     @include('admin.users._nav')
 
+    <div class="d-flex flex-row mb-3">
+        <a href="{{ route('admin.users.create') }}" class="btn btn-success mr-1">Add User</a>
+    </div>
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
