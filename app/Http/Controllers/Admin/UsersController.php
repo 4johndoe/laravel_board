@@ -58,6 +58,11 @@ class UsersController extends Controller
 
     public function destroy(User $user)
     {
+        if (auth()->user()->id === $user->id) {
+            return redirect()->route('admin.users.show', $user)
+                ->with('info', 'You can not delete yourself');
+        }
+
         $user->delete();
 
         return redirect()->route('admin.users.index');
