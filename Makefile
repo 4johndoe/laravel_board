@@ -14,8 +14,9 @@ test:
 	docker-compose exec php-cli vendor/bin/phpunit --colors=always
 
 perm:
-	docker-compose exec php-cli chmod 777 bootstrap/cache -R
-	docker-compose exec php-cli chmod 777 storage -R
+	docker-compose exec php-cli chmod 777 -R *
+# 	docker-compose exec php-cli chmod 777 bootstrap/cache -R
+# 	docker-compose exec php-cli chmod 777 storage -R
 
 assets-install:
 	docker-compose exec node yarn install
