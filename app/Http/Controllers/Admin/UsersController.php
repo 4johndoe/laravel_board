@@ -6,12 +6,17 @@ use App\Entity\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CreateRequest;
 use App\Http\Requests\Admin\UpdateRequest;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
+use App\UseCases\Auth\RegisterService;
 
 class UsersController extends Controller
 {
+    private $service;
+
+    public function __construct(RegisterService $service)
+    {
+        $this->service = $service;
+    }
+
     public function index()
     {
         $users = User::orderBy('id', 'desc')->paginate(20);
@@ -26,10 +31,10 @@ class UsersController extends Controller
 
     public function store(CreateRequest $request)
     {
-        $user = User::create($request->only(['name', 'email']) + [
-            'password' => bcrypt(Str::random()),
-            'status' => User::STATUS_ACTIVE,
-        ]);
+        $user = User::new(
+            $request['name'],
+            $request['email']
+        );
 
         return redirect()->route('admin.users.show', compact('user'));
     }
@@ -41,12 +46,7 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
-        $statuses = [
-            User::STATUS_WAIT => 'Waiting',
-            User::STATUS_ACTIVE => 'Active',
-        ];
-
-        return view('admin.users.edit', compact('user', 'statuses'));
+        return view('admin.users.edit', compact('user'));
     }
 
     public function update(UpdateRequest $request, User $user)
@@ -61,5 +61,17 @@ class UsersController extends Controller
         $user->delete();
 
         return redirect()->route('admin.users.index');
+    }
+
+    public function verify(User $user)
+    {
+        try {
+            $this->service->verify($user->id);
+        } catch (\DomainException $e) {
+            return redirect()->route('admin.users.show', $user)
+                ->with('error', $e->getMessage());
+        }
+
+        return redirect()->route('admin.users.show', $user);
     }
 }
