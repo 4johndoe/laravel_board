@@ -13,6 +13,7 @@
             <th>Name</th>
             <th>Email</th>
             <th>Status</th>
+            <th>Role</th>
         </tr>
         </thead>
         <tbody>
@@ -23,11 +24,18 @@
                 <td><a href="{{ route('admin.users.show', $user) }}">{{ $user->name }}</a></td>
                 <td>{{ $user->email }}</td>
                 <td>
-                    @if ($user->status === \App\Entity\User::STATUS_WAIT)
+                    @if ($user->isWait())
                         <span class="badge badge-secondary">Waiting</span>
                     @endif
-                    @if ($user->status === \App\Entity\User::STATUS_ACTIVE)
+                    @if ($user->isActive())
                         <span class="badge badge-primary">Active</span>
+                    @endif
+                </td>
+                <td>
+                    @if ($user->isAdmin())
+                        <span class="badge badge-danger">Admin</span>
+                    @else
+                        <span class="badge badge-secondary">User</span>
                     @endif
                 </td>
             </tr>
