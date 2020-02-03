@@ -9,11 +9,13 @@
             @csrf
             <button class="btn btn-success">Verify</button>
         </form>
-        <form method="POST" action="{{ route('admin.users.update', $user) }}" class="mr-1">
-            @csrf
-            @method('DELETE')
-            <button class="btn btn-danger">Delete</button>
-        </form>
+        @can('users-manage')
+            <form method="POST" action="{{ route('admin.users.update', $user) }}" class="mr-1">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger">Delete</button>
+            </form>
+        @endcan
     </div>
 
     <table class="table table-bordered table-striped">

@@ -16,6 +16,7 @@ class UsersController extends Controller
     public function __construct(RegisterService $service)
     {
         $this->service = $service;
+        $this->middleware('can:users-manage');
     }
 
     public function index(Request $request)
@@ -43,8 +44,6 @@ class UsersController extends Controller
         }
 
         $users = $query->paginate(20);
-//        $users = $query->toSql();
-//        dd($users);
 
         $statuses = [
             User::STATUS_ACTIVE => 'Active',
