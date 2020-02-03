@@ -34,7 +34,7 @@
                             <select id="status" class="form-control" name="status">
                                 <option value=""></option>
                                 @foreach ($statuses as $value => $label)
-                                    <option value="{{ $value }}}"{{ $value === request('status') ? ' selected' : '' }}>
+                                    <option value="{{ $value }}"{{ $value === request('status') ? ' selected' : '' }}>
                                         {{ $label }}
                                     </option>
                                 @endforeach
@@ -47,7 +47,7 @@
                             <select id="role" class="form-control" name="role">
                                 <option value=""></option>
                                 @foreach ($roles as $value => $label)
-                                    <option value="{{ $value }}}"{{ $value === request('role') ? ' selected' : '' }}>
+                                    <option value="{{ $value }}"{{ $value === request('role') ? ' selected' : '' }}>
                                         {{ $label }}
                                     </option>
                                 @endforeach
