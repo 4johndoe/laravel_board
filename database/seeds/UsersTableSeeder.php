@@ -10,7 +10,8 @@ class UsersTableSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@crm.com',
             'password' => bcrypt(11111111),
-            'status' => App\Entity\User::STATUS_ACTIVE
+            'status' => App\Entity\User::STATUS_ACTIVE,
+            'role' => App\Entity\User::ROLE_ADMIN
         ]);
 
         factory(App\Entity\User::class, 50)->create();
