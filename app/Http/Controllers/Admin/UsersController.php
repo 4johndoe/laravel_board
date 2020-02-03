@@ -20,7 +20,6 @@ class UsersController extends Controller
 
     public function index(Request $request)
     {
-        dd($request->all());
         $query = User::orderByDesc('id');
 
         if (!empty($value = $request->get('id'))) {
