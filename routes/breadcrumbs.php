@@ -3,6 +3,7 @@
 use App\Entity\Region;
 use App\Entity\User;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator as Crumbs;
+use App\Entity\Adverts\Category;
 
 Breadcrumbs::register('cabinet', function(Crumbs $crumbs) {
     $crumbs->push('Home', route('cabinet'));
@@ -67,11 +68,41 @@ Breadcrumbs::register('admin.regions.create', function(Crumbs $crumbs) {
 });
 
 Breadcrumbs::register('admin.regions.show', function(Crumbs $crumbs, Region $region) {
-    $crumbs->parent('admin.regions.index');
+    if ($parent = $region->parent) {
+        $crumbs->parent('admin.regions.show', $parent);
+    } else {
+        $crumbs->parent('admin.regions.index');
+    }
     $crumbs->push($region->name, route('admin.regions.show', $region));
 });
 
 Breadcrumbs::register('admin.regions.edit', function(Crumbs $crumbs, Region $region) {
     $crumbs->parent('admin.regions.show', $region);
     $crumbs->push('Edit', route('admin.regions.edit', $region));
+});
+
+//////////// advert categories
+
+Breadcrumbs::register('admin.adverts.categories.index', function(Crumbs $crumbs) {
+    $crumbs->parent('admin.home');
+    $crumbs->push('Regions', route('admin.adverts.categories.index'));
+});
+
+Breadcrumbs::register('admin.adverts.categories.create', function(Crumbs $crumbs) {
+    $crumbs->parent('admin.adverts.categories.index');
+    $crumbs->push('Create', route('admin.adverts.categories.create'));
+});
+
+Breadcrumbs::register('admin.adverts.categories.show', function(Crumbs $crumbs, Category $category) {
+    if ($parent = $category->parent) {
+        $crumbs->parent('admin.adverts.categories.show', $parent);
+    } else {
+        $crumbs->parent('admin.adverts.categories.index');
+    }
+    $crumbs->push($category->name, route('admin.adverts.categories.show', $category));
+});
+
+Breadcrumbs::register('admin.adverts.categories.edit', function(Crumbs $crumbs, Category $category) {
+    $crumbs->parent('admin.adverts.categories.show', $category);
+    $crumbs->push('Edit', route('admin.adverts.categories.edit', $category));
 });

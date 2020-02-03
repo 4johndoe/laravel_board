@@ -8,8 +8,6 @@ use Illuminate\Http\Request;
 
 class RegionController extends Controller
 {
-    private $service;
-
     public function index()
     {
         $regions = Region::where('parent_id', null)->orderBy('name')->paginate(30);
@@ -17,9 +15,15 @@ class RegionController extends Controller
         return view('admin.regions.index', compact('regions'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('admin.regions.create');
+        $parent = null;
+
+        if ($request->get('parent')) {
+            $parent = Region::findOrFail($request->get('parent'));
+        }
+
+        return view('admin.regions.create', compact('parent'));
     }
 
     public function store(Request $request)
@@ -27,7 +31,7 @@ class RegionController extends Controller
         $this->validate($request, [
             'name' => 'required|string|max:255|unique:regions,name,NULL,id,parent_id,' . ($request['parent'] ?: 'NULL'),
             'slug' => 'required|string|max:255|unique:regions,name,NULL,id,parent_id,' . ($request['parent'] ?: 'NULL'),
-            'parent' => 'optional|exists:regions,id',
+            'parent' => 'nullable|exists:regions,id',
         ]);
 
         $region = Region::create([
