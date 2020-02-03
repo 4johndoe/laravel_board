@@ -116,6 +116,7 @@ class UsersController extends Controller
                 ->with('error', $e->getMessage());
         }
 
-        return redirect()->route('admin.users.show', $user);
+        return redirect()->route('admin.users.show', $user)
+            ->with('info', 'Users successfully activated');
     }
 }
