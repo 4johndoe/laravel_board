@@ -1,5 +1,6 @@
 <?php
 
+use App\Entity\Region;
 use App\Entity\User;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator as Crumbs;
 
@@ -26,6 +27,7 @@ Breadcrumbs::register('password.request', function(Crumbs $crumbs) {
     $crumbs->push('Reset Password', route('password.request'));
 });
 
+//////////// users
 
 Breadcrumbs::register('admin.home', function(Crumbs $crumbs) {
     $crumbs->parent('home');
@@ -50,4 +52,26 @@ Breadcrumbs::register('admin.users.show', function(Crumbs $crumbs, User $user) {
 Breadcrumbs::register('admin.users.edit', function(Crumbs $crumbs, User $user) {
     $crumbs->parent('admin.users.show', $user);
     $crumbs->push('Edit', route('admin.users.edit', $user));
+});
+
+//////////// regions
+
+Breadcrumbs::register('admin.regions.index', function(Crumbs $crumbs) {
+    $crumbs->parent('admin.home');
+    $crumbs->push('Regions', route('admin.regions.index'));
+});
+
+Breadcrumbs::register('admin.regions.create', function(Crumbs $crumbs) {
+    $crumbs->parent('admin.regions.index');
+    $crumbs->push('Create', route('admin.regions.create'));
+});
+
+Breadcrumbs::register('admin.regions.show', function(Crumbs $crumbs, Region $region) {
+    $crumbs->parent('admin.regions.index');
+    $crumbs->push($region->name, route('admin.regions.show', $region));
+});
+
+Breadcrumbs::register('admin.regions.edit', function(Crumbs $crumbs, Region $region) {
+    $crumbs->parent('admin.regions.show', $region);
+    $crumbs->push('Edit', route('admin.regions.edit', $region));
 });
