@@ -16,6 +16,13 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+    {{--    Fav--}}
+    <link href="https://puzzles.in.ua/image/catalog/fav.png" rel="icon" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/image/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/image/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/image/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/image/favicon/site.webmanifest">
+
     <!-- Styles -->
     <link href="{{ mix('css/app.css', 'build') }}" rel="stylesheet">
 </head>
