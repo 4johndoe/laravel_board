@@ -10,6 +10,7 @@
         <tr>
             <th>Name</th>
             <th>Slug</th>
+            <th>Manage</th>
         </tr>
         </thead>
         <tbody>
